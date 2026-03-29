@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio E5 — ARBAOUI Yacine | BTS SIO SISR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e17;--bg2:#0f1520;--bg3:#141c2b;
+  --surface:#1a2332;--surface2:#1e2a3a;
+  --border:#1e3a5f;
+  --accent:#00d4ff;--accent2:#0090b3;--accent-glow:rgba(0,212,255,.15);
+  --green:#00ff88;--green-dim:#00cc6a;
+  --orange:#ff8800;--red:#ff3366;--purple:#aa66ff;
+  --text:#e4eaf0;--text2:#8899aa;--text3:#556677;
+  --font-display:'Outfit',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:var(--font-display);line-height:1.7;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--bg)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
+body::before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,23,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s}
+nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-mono);font-weight:700;font-size:.95rem;color:var(--accent);display:flex;align-items:center;gap:.5rem}
+.nav-logo .blink{animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.nav-links{display:flex;gap:.25rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;padding:.5rem .85rem;border-radius:6px;transition:all .25s;letter-spacing:.02em}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:var(--accent-glow)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;z-index:101}
+.hamburger span{width:24px;height:2px;background:var(--text);transition:all .3s;border-radius:2px}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:6rem 2rem}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;animation:float 8s ease-in-out infinite}
+.hero-bg .orb1{width:400px;height:400px;background:var(--accent);top:-10%;right:10%}
+.hero-bg .orb2{width:300px;height:300px;background:#6633ff;bottom:5%;left:5%;animation-delay:3s}
+.hero-bg .orb3{width:200px;height:200px;background:var(--green);top:40%;left:30%;animation-delay:5s;opacity:.2}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+.hero-content{position:relative;z-index:1;text-align:center;max-width:800px}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.8rem;color:var(--green);background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);padding:.4rem 1rem;border-radius:99px;margin-bottom:1.5rem;letter-spacing:.05em}
+.hero-tag .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:1rem}
+.hero h1 .name{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.15rem;color:var(--text2);max-width:600px;margin:0 auto 2.5rem;font-weight:300;line-height:1.8}
+.hero-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-bottom:2.5rem}
+.badge{font-family:var(--font-mono);font-size:.72rem;font-weight:500;padding:.35rem .8rem;border-radius:4px;letter-spacing:.03em;border:1px solid var(--border);background:var(--surface);color:var(--text2);transition:all .3s}
+.badge:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;border-radius:8px;font-family:var(--font-display);font-size:.9rem;font-weight:600;text-decoration:none;transition:all .3s;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);box-shadow:0 4px 20px rgba(0,212,255,.25)}
+.btn-primary:hover{box-shadow:0 6px 30px rgba(0,212,255,.4);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+section{position:relative;z-index:1;padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-header{margin-bottom:3rem}
+.section-label{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.section-label::before{content:'';width:20px;height:1px;background:var(--accent)}
+.section-title{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;letter-spacing:-.02em;line-height:1.2}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:all .4s}
+.about-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,212,255,.08)}
+.about-card h3{font-size:1rem;font-weight:600;margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem}
+.about-card h3 .icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.icon-blue{background:rgba(0,212,255,.12);color:var(--accent)}
+.icon-green{background:rgba(0,255,136,.12);color:var(--green)}
+.icon-orange{background:rgba(255,136,0,.12);color:var(--orange)}
+.about-card p,.about-card li{color:var(--text2);font-size:.9rem;line-height:1.7}
+.about-card ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.about-card li::before{content:'\25B9 ';color:var(--accent);font-weight:700}
+
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.skill-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:all .4s;position:relative;overflow:hidden}
+.skill-block::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+.skill-block:nth-child(1)::before{background:linear-gradient(90deg,var(--accent),#0066ff)}
+.skill-block:nth-child(2)::before{background:linear-gradient(90deg,var(--green),#00cc66)}
+.skill-block:nth-child(3)::before{background:linear-gradient(90deg,var(--red),#ff6644)}
+.skill-block:nth-child(4)::before{background:linear-gradient(90deg,var(--orange),#ffaa00)}
+.skill-block:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 30px rgba(0,212,255,.08)}
+.skill-block h3{font-size:1rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.skill-tag{font-family:var(--font-mono);font-size:.7rem;padding:.3rem .65rem;border-radius:4px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);transition:all .25s}
+.skill-tag:hover{color:var(--accent);border-color:var(--accent)}
+
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:2.5rem;overflow:hidden;transition:all .4s}
+.project-card:hover{border-color:var(--accent);box-shadow:0 12px 40px rgba(0,212,255,.08)}
+.project-head{padding:2rem 2rem 1.25rem}
+.project-num{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);background:var(--accent-glow);padding:.25rem .65rem;border-radius:4px;letter-spacing:.1em;margin-bottom:.5rem;display:inline-block}
+.project-card h3{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.5rem}
+.project-card .desc{color:var(--text2);font-size:.88rem;max-width:750px;line-height:1.7}
+.project-tools{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.project-tool{font-family:var(--font-mono);font-size:.65rem;padding:.2rem .55rem;border-radius:3px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.15);color:var(--green-dim)}
+.pdf-link{display:inline-flex;align-items:center;gap:.45rem;margin-top:1rem;padding:.5rem 1.1rem;border-radius:6px;font-family:var(--font-mono);font-size:.78rem;font-weight:500;text-decoration:none;color:var(--accent);background:var(--accent-glow);border:1px solid rgba(0,212,255,.25);transition:all .3s;letter-spacing:.02em}
+.pdf-link:hover{background:rgba(0,212,255,.2);border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,212,255,.15)}
+.pdf-link svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+.project-body{padding:0 2rem 2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.project-section h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.6rem;font-weight:600;font-family:var(--font-mono)}
+.project-section p,.project-section li{font-size:.84rem;color:var(--text2);line-height:1.7}
+.project-section ul{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.project-section li::before{content:'\2192 ';color:var(--accent);font-weight:700}
+.project-context{padding:0 2rem 1.25rem}
+.project-context p{font-size:.88rem;color:var(--text2);line-height:1.7}
+
+.cat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:3px;display:inline-block;margin-bottom:1.5rem}
+.cat-formation{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--accent)}
+.cat-stage{background:rgba(170,102,255,.1);border:1px solid rgba(170,102,255,.2);color:var(--purple)}
+
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--purple),var(--border));border-radius:2px}
+.timeline-item{position:relative;margin-bottom:2.5rem}
+.timeline-item::before{content:'';position:absolute;left:-2.65rem;top:.6rem;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 12px rgba(0,212,255,.4)}
+.timeline-item:nth-child(2)::before{background:var(--purple);box-shadow:0 0 12px rgba(170,102,255,.4)}
+.timeline-item:nth-child(3)::before{background:var(--green);box-shadow:0 0 12px rgba(0,255,136,.4)}
+.timeline-item:nth-child(4)::before{background:var(--orange);box-shadow:0 0 12px rgba(255,136,0,.4)}
+.timeline-item h3{font-size:1.15rem;font-weight:700;margin-bottom:.25rem}
+.timeline-item .role{font-family:var(--font-mono);font-size:.8rem;color:var(--accent);margin-bottom:.75rem}
+.timeline-item p,.timeline-item li{font-size:.9rem;color:var(--text2);line-height:1.7}
+.timeline-item ul{list-style:none;display:flex;flex-direction:column;gap:.3rem;margin-top:.5rem}
+.timeline-item li::before{content:'\25B9 ';color:var(--green);font-weight:700}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.25rem}
+.stat-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center}
+.stat-box .num{font-family:var(--font-mono);font-size:1.3rem;font-weight:700;color:var(--accent);display:block}
+.stat-box .lbl{font-size:.72rem;color:var(--text3);margin-top:.25rem;display:block}
+
+.veille-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.veille-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:all .4s}
+.veille-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.veille-card h3{font-size:1rem;font-weight:600;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.veille-card p{font-size:.9rem;color:var(--text2);line-height:1.7}
+.veille-tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.veille-tool{font-size:.75rem;font-weight:500;padding:.3rem .7rem;border-radius:6px;background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+.compare-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.82rem}
+.compare-table th{background:var(--bg2);color:var(--accent);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.6rem .8rem;text-align:left;border-bottom:2px solid var(--border)}
+.compare-table td{padding:.6rem .8rem;border-bottom:1px solid rgba(30,58,95,.4);color:var(--text2)}
+.compare-table tr:hover td{background:rgba(0,212,255,.03)}
+
+.conclusion-box{background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(0,255,136,.04));border:1px solid rgba(0,212,255,.15);border-radius:16px;padding:3rem;text-align:center}
+.conclusion-box h3{font-size:1.5rem;font-weight:700;margin-bottom:1.5rem}
+.conclusion-text{max-width:700px;margin:0 auto;color:var(--text2);font-size:1rem;line-height:1.8}
+.conclusion-text p{margin-bottom:1rem}
+.conclusion-goals{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.goal{text-align:center;padding:1.25rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;min-width:200px;transition:all .3s}
+.goal:hover{border-color:var(--accent);transform:translateY(-3px)}
+.goal .label{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem}
+.goal .value{font-weight:600;font-size:.95rem}
+
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text3);font-size:.8rem;font-family:var(--font-mono)}
+
+/* E5 Grid */
+.e5-table{width:100%;border-collapse:collapse;font-size:.78rem;min-width:800px}
+.e5-table thead th{background:var(--bg2);color:var(--accent);font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:.7rem .5rem;text-align:center;border-bottom:2px solid var(--border);position:sticky;top:0}
+.e5-table thead th.col-project{text-align:left;min-width:220px}
+.e5-table thead th.col-period{min-width:120px;text-align:center}
+.e5-table thead th.col-comp{min-width:55px;max-width:70px}
+.e5-table .comp-full{display:block;font-size:.55rem;font-weight:400;color:var(--text3);text-transform:none;letter-spacing:0;margin-top:.2rem;line-height:1.3}
+.comp-short{font-family:var(--font-mono);font-size:.7rem;font-weight:600;padding:.15rem .4rem;border-radius:3px;display:inline-block}
+.e5-table tbody td{padding:.55rem .5rem;border-bottom:1px solid rgba(30,58,95,.3);color:var(--text2);text-align:center;vertical-align:middle}
+.e5-table tbody td:first-child{text-align:left;font-weight:500;color:var(--text)}
+.e5-table tbody tr:hover td{background:rgba(0,212,255,.03)}
+.e5-category td{background:var(--surface)!important;color:var(--accent)!important;font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.65rem .5rem!important;border-top:2px solid var(--border)}
+.xbadge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;font-family:var(--font-mono);font-size:.72rem;font-weight:600;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--accent)}
+.xbadge.x4{background:rgba(0,255,136,.12);border-color:rgba(0,255,136,.25);color:var(--green)}
+.e5-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.5rem .75rem;margin-top:.5rem}
+.legend-item{font-size:.78rem;color:var(--text2);display:flex;align-items:center;gap:.5rem}
+.legend-item .comp-short{font-size:.65rem;flex-shrink:0}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;align-items:center;gap:1.15rem;text-decoration:none;transition:all .4s;position:relative;overflow:hidden}
+.contact-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.03),transparent);opacity:0;transition:opacity .3s}
+.contact-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 35px rgba(0,212,255,.1)}
+.contact-card:hover::before{opacity:1}
+.contact-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid;flex-shrink:0;position:relative;z-index:1}
+.contact-info{display:flex;flex-direction:column;gap:.15rem;position:relative;z-index:1;min-width:0}
+.contact-label{font-family:var(--font-mono);font-size:.7rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase}
+.contact-value{font-size:.92rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.contact-arrow{margin-left:auto;font-size:1.2rem;color:var(--text3);transition:all .3s;position:relative;z-index:1;flex-shrink:0}
+.contact-card:hover .contact-arrow{color:var(--accent);transform:translate(3px,-3px)}
+
+.fade-up{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.stagger-1{transition-delay:.1s}.stagger-2{transition-delay:.2s}.stagger-3{transition-delay:.3s}.stagger-4{transition-delay:.4s}
+
+@media(max-width:900px){
+  .about-grid,.skills-grid,.veille-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .project-body{grid-template-columns:1fr}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links{position:fixed;top:0;right:-100%;width:70%;max-width:300px;height:100vh;flex-direction:column;background:var(--bg2);padding:5rem 2rem 2rem;gap:.5rem;border-left:1px solid var(--border);transition:right .3s}
+  .nav-links.open{right:0}
+  .hamburger{display:flex}
+  .conclusion-goals{flex-direction:column;align-items:center}
+}
+@media(max-width:600px){
+  .hero h1{font-size:2rem}
+  section{padding:3rem 1.25rem}
+  .project-head,.project-body,.project-context{padding-left:1.25rem;padding-right:1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo"><span>~/arbaoui</span><span class="blink">_</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Profil</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#experience">Grille E5</a></li>
+      <li><a href="#parcours">Expériences</a></li>
+      <li><a href="#veille">Veille</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="dot"></span> Disponible pour opportunités</div>
+    <h1><span class="name">ARBAOUI Yacine</span><br>Portfolio E5</h1>
+    <p class="hero-sub">Étudiant en BTS SIO option SISR — passionné par l'infrastructure réseau, l'administration système et la cybersécurité.</p>
+    <div class="hero-badges">
+      <span class="badge">Windows Server</span><span class="badge">Active Directory</span><span class="badge">pfSense</span><span class="badge">Linux</span><span class="badge">VLAN 802.1Q</span><span class="badge">Wireshark</span><span class="badge">FOG</span><span class="badge">GLPI</span><span class="badge">VMware</span><span class="badge">Docker</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+      <a href="#about" class="btn btn-ghost">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">01 — Présentation</div><h2 class="section-title">Qui suis-je ?</h2></div>
+    <div class="about-grid">
+      <div class="about-card fade-up stagger-1" style="grid-column:1/-1">
+        <h3><span class="icon icon-blue">&#128100;</span> Présentation personnelle</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem 2rem;margin-top:.25rem">
+          <p><strong>Nom :</strong> ARBAOUI Yacine</p>
+          <p><strong>Âge :</strong> 20 ans</p>
+          <p><strong>Ville :</strong> Wattrelos (59)</p>
+          <p><strong>Formation actuelle :</strong> BTS SIO option SISR — Lycée Saint Rémi</p>
+          <p><strong>Baccalauréat :</strong> Bac Général — Spécialités Mathématiques et NSI (Numérique et Sciences Informatiques)</p>
+        </div>
+      </div>
+      <div class="about-card fade-up stagger-2">
+        <h3><span class="icon icon-green">&#127919;</span> Projet professionnel</h3>
+        <p>Intégrer un poste d'<strong>administrateur systèmes et réseaux</strong> à court terme, puis évoluer vers la <strong>cybersécurité</strong> ou l'<strong>ingénierie réseau</strong>. Poursuite d'études envisagée en licence pro ou école spécialisée.</p>
+      </div>
+      <div class="about-card fade-up stagger-3">
+        <h3><span class="icon icon-orange">&#9889;</span> Qualités professionnelles</h3>
+        <ul>
+          <li><strong>Rigueur technique</strong> — configurations propres, documentation systématique</li>
+          <li><strong>Esprit d'analyse</strong> — diagnostic rapide des incidents réseau</li>
+          <li><strong>Autonomie</strong> — prise en charge d'infrastructures complètes</li>
+          <li><strong>Curiosité technologique</strong> — veille permanente, tests en labo virtuel</li>
+          <li><strong>Patience</strong> — qualité essentielle pour le débogage réseau</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">02 — Compétences</div><h2 class="section-title">Stack technique</h2></div>
+    <div class="skills-grid">
+      <div class="skill-block fade-up stagger-1"><h3>&#128268; Réseaux</h3><div class="skill-tags"><span class="skill-tag">VLAN 802.1Q</span><span class="skill-tag">Routage statique</span><span class="skill-tag">NAT / PAT / NAPT</span><span class="skill-tag">DHCP</span><span class="skill-tag">DNS</span><span class="skill-tag">Switchs NETGEAR</span><span class="skill-tag">Trunk</span><span class="skill-tag">pfSense</span><span class="skill-tag">VPN</span><span class="skill-tag">DMZ</span><span class="skill-tag">PXE Boot</span><span class="skill-tag">WiFi multi-SSID</span></div></div>
+      <div class="skill-block fade-up stagger-2"><h3>&#128421; Systèmes</h3><div class="skill-tags"><span class="skill-tag">Windows Server</span><span class="skill-tag">Active Directory</span><span class="skill-tag">GPO</span><span class="skill-tag">Linux Debian / Ubuntu</span><span class="skill-tag">OpenLDAP</span><span class="skill-tag">Sysprep</span><span class="skill-tag">GLPI</span><span class="skill-tag">Gestion des droits</span></div></div>
+      <div class="skill-block fade-up stagger-3"><h3>&#128274; Cybersécurité</h3><div class="skill-tags"><span class="skill-tag">Pare-feu pfSense</span><span class="skill-tag">Wireshark</span><span class="skill-tag">Portail captif</span><span class="skill-tag">Filtrage firewall</span><span class="skill-tag">Chiffrement PGP</span><span class="skill-tag">ZTNA / Zero Trust</span><span class="skill-tag">WPA2 / WPA3</span><span class="skill-tag">Segmentation VLAN</span></div></div>
+      <div class="skill-block fade-up stagger-4"><h3>&#128736; Outils</h3><div class="skill-tags"><span class="skill-tag">VMware</span><span class="skill-tag">VirtualBox</span><span class="skill-tag">Docker</span><span class="skill-tag">FOG Project</span><span class="skill-tag">WordPress</span><span class="skill-tag">PowerShell</span><span class="skill-tag">Bash</span><span class="skill-tag">iptables</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">03 — Projets réalisés</div><h2 class="section-title">Réalisations techniques</h2></div>
+
+    <div class="cat-label cat-formation fade-up">Projets de formation</div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 01</span>
+        <h3>Infrastructure réseau M2L — Maison des Ligues de Lorraine</h3>
+        <p class="desc">Reconstitution complète de l'infrastructure réseau de la M2L en environnement virtualisé : segmentation VLAN, serveur DHCP, annuaire OpenLDAP, serveur web en DMZ et routage inter-VLAN avec NAPT.</p>
+        <div class="project-tools"><span class="project-tool">VirtualBox</span><span class="project-tool">Linux Xubuntu</span><span class="project-tool">VLAN 802.1Q</span><span class="project-tool">DHCP (isc-dhcp-server)</span><span class="project-tool">OpenLDAP</span><span class="project-tool">WordPress</span><span class="project-tool">iptables / NAPT</span><span class="project-tool">Switchs NETGEAR</span></div>
+        <a href="AP3M1-Arbaoui-Lehu-Meziani-v2_0.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-context"><p>Projet en équipe (Arbaoui, Lehu, Meziani) — AP3 Mission 1 CREANET. Objectif : reproduire les fonctionnalités réseau de la M2L (WiFi, VPN, DMZ, DHCP, serveur web, LDAP, AD, GLPI) en environnement virtualisé multi-hôtes.</p></div>
+      <div class="project-body">
+        <div class="project-section"><h4>Réalisations</h4><ul><li>Segmentation VLAN (VLAN 20 ligues, VLAN 30 DMZ) sur switchs NETGEAR avec configuration PVID, tagged/untagged</li><li>Routeur Linux avec interfaces 802.1Q (vconfig) et NAPT via iptables</li><li>Serveur DHCP distribuant IP, passerelle et DNS Quad9 (plage 172.16.3.10-200)</li><li>Annuaire OpenLDAP (dc=dns,dc=m2l,dc=local) avec administration phpldapadmin</li><li>Serveur web WordPress en DMZ (10.54.0.0/24) via TurnKey Linux</li></ul></div>
+        <div class="project-section"><h4>Résultats</h4><ul><li>Infrastructure multi-VLAN fonctionnelle avec accès Internet automatique via DHCP</li><li>Isolation effective entre réseau des ligues et DMZ via routeur filtrant</li><li>Annuaire centralisé opérationnel pour la gestion des utilisateurs M2L</li><li>Site web accessible depuis la DMZ</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Configuration VLAN et trunk sur switchs manageables</li><li>Routage inter-VLAN sous Linux (802.1Q, ip_forward)</li><li>Administration DHCP (isc-dhcp-server) et DNS</li><li>Déploiement OpenLDAP et serveur web en DMZ</li><li>NAT/NAPT avec iptables</li></ul></div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 02</span>
+        <h3>Couverture réseau — VIèmes Assises Nationales de l'Escrime</h3>
+        <p class="desc">Déploiement d'une infrastructure réseau WiFi sécurisée pour un événement sportif de 2 500 visiteurs, avec segmentation VLAN, multi-SSID et routage pfSense.</p>
+        <div class="project-tools"><span class="project-tool">pfSense</span><span class="project-tool">Switch manageable</span><span class="project-tool">VLAN 10/20/30</span><span class="project-tool">WiFi multi-SSID</span><span class="project-tool">WPA2 / WPA3</span><span class="project-tool">DHCP par VLAN</span><span class="project-tool">NAT</span></div>
+        <a href="Projet_ASSISES_v3.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-context"><p>Projet visant à fournir une connectivité WiFi segmentée pour trois catégories d'utilisateurs : Public (2 500 visiteurs + stands), Orga (organisation) et Admin (administrateurs techniques), avec isolation inter-VLAN et filtrage sur pfSense.</p></div>
+      <div class="project-body">
+        <div class="project-section"><h4>Réalisations</h4><ul><li>3 VLAN : Orga (172.16.10.0/24), Public (172.16.20.0/24), Admin (172.16.30.0/24)</li><li>pfSense avec interfaces VLAN 802.1Q (em1.10, em1.20, em1.30) et DHCP par sous-réseau</li><li>3 SSID WiFi : Orga (WPA2, masqué), Public (WPA2, visible), Admin (WPA3 Enterprise, masqué)</li><li>Mode trunk sur liaisons Switch-Routeur et Switch-PA</li><li>Règles de filtrage bloquant tout trafic inter-VLAN</li></ul></div>
+        <div class="project-section"><h4>Résultats</h4><ul><li>Isolation complète validée entre les 3 réseaux</li><li>Attribution DHCP fonctionnelle dans chaque VLAN</li><li>Accès Internet pour tous via NAT pfSense</li><li>Plan de test validé : DHCP, isolation inter-VLAN, accès Internet</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Administration pfSense (VLAN, DHCP, NAT, firewall)</li><li>Configuration switchs manageables (PVID, trunk)</li><li>Déploiement WiFi multi-SSID sécurisé (WPA2/WPA3)</li><li>Sécurité réseau événementiel à grande échelle</li></ul></div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 03</span>
+        <h3>Analyse réseau — Tutoriel et pratique Wireshark</h3>
+        <p class="desc">Rédaction d'un tutoriel complet et mise en pratique de Wireshark : capture de paquets, filtres d'affichage, mode promiscuous, port SPAN sur switch Cisco et règles de coloration.</p>
+        <div class="project-tools"><span class="project-tool">Wireshark</span><span class="project-tool">Mode Promiscuous</span><span class="project-tool">Filtres d'affichage</span><span class="project-tool">SPAN / Port miroir</span><span class="project-tool">TCP / UDP / ARP / DNS / STP</span></div>
+        <a href="Tutoriel_Wireshark__1_.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-body">
+        <div class="project-section"><h4>Réalisations</h4><ul><li>Installation multi-plateforme (Windows, Linux, macOS)</li><li>Capture et analyse de paquets multi-protocoles en temps réel</li><li>Filtres : ip.addr, tcp.port, http, stp, vlan</li><li>Configuration port SPAN sur switch Cisco pour monitoring inter-switchs</li><li>Création de règles de coloration personnalisées</li></ul></div>
+        <div class="project-section"><h4>Résultats</h4><ul><li>Tutoriel structuré de 5 pages utilisable par un débutant</li><li>Identification d'anomalies réseau en conditions réelles</li><li>Compréhension approfondie des protocoles réseau</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Analyse de trafic réseau et diagnostic</li><li>Cybersécurité : détection d'anomalies</li><li>Maîtrise avancée de Wireshark</li><li>Documentation technique</li></ul></div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 04</span>
+        <h3>Déploiement d'images — Serveur FOG sur Debian</h3>
+        <p class="desc">Mise en place d'un serveur FOG (Free Open-source Ghost) pour le clonage et déploiement automatisé d'images système via PXE Boot sur un réseau local virtualisé.</p>
+        <div class="project-tools"><span class="project-tool">FOG 1.5.6</span><span class="project-tool">Debian</span><span class="project-tool">PXE Boot</span><span class="project-tool">DHCP (options 66/67)</span><span class="project-tool">Apache / MySQL / TFTP / NFS</span><span class="project-tool">VirtualBox</span></div>
+        <a href="Compte_Rendu_TP_FOG.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-body">
+        <div class="project-section"><h4>Réalisations</h4><ul><li>Installation serveur FOG sur Debian (Apache, MySQL, PHP, TFTP, NFS)</li><li>Configuration DHCP avec options PXE (next-server + boot filename)</li><li>Enregistrement et capture d'image d'une machine modèle</li><li>Déploiement sur postes clients via boot PXE réseau</li></ul></div>
+        <div class="project-section"><h4>Résultats</h4><ul><li>Serveur FOG opérationnel avec interface web</li><li>Capture et déploiement fonctionnels</li><li>Temps d'installation réduit de 2h à 15min par poste</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Déploiement automatisé (PXE, imaging)</li><li>Administration serveur Linux</li><li>Configuration DHCP avancée</li><li>Gestion de parc informatique</li></ul></div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 05</span>
+        <h3>Création d'un site web — Association sportive AS Lille</h3>
+        <p class="desc">Étude des besoins, benchmark, charte graphique et développement WordPress pour un club de football amateur : calendrier, effectifs, boutique, partenaires et formulaire de contact.</p>
+        <div class="project-tools"><span class="project-tool">WordPress</span><span class="project-tool">HTML / CSS</span><span class="project-tool">Hébergement serveur</span><span class="project-tool">Charte graphique</span></div>
+        <a href="asso2023_docSyntheseArbaouiGesquiereV1_0.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-body">
+        <div class="project-section"><h4>Réalisations</h4><ul><li>Analyse du besoin client et benchmark (US Lesquin, IC Croix, US Tourcoing)</li><li>Charte graphique : palette violet/blanc, typo Sans Serif, navigation structurée</li><li>Pages : accueil, équipes (U14-U19), calendrier, boutique, partenaires, contact</li><li>Résolution de problèmes serveur et d'affichage d'images</li></ul></div>
+        <div class="project-section"><h4>Résultats</h4><ul><li>Site fonctionnel conforme au cahier des charges</li><li>Interface ergonomique adaptée au public cible</li><li>Communication facilitée club-adhérents</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Analyse du besoin et relation client</li><li>Développement web (WordPress)</li><li>Design UI et charte graphique</li><li>Gestion de serveur web</li></ul></div>
+      </div>
+    </div>
+
+    <div class="cat-label cat-stage fade-up" style="margin-top:1rem">Projets de stage — Hôpital de Roubaix</div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 06</span>
+        <h3>Masterisation de PC — Déploiement sur 80 postes hospitaliers</h3>
+        <p class="desc">Déploiement à grande échelle d'images système via FOG pour le renouvellement du parc informatique de l'Hôpital de Roubaix — 4 services : Urgences (30), Radiologie (15), Administration (25), Pharmacie (10).</p>
+        <div class="project-tools"><span class="project-tool">FOG 1.5.6</span><span class="project-tool">Debian 11</span><span class="project-tool">PXE / Multicast</span><span class="project-tool">Sysprep</span><span class="project-tool">Active Directory</span><span class="project-tool">Windows 10/11 Pro</span><span class="project-tool">DHCP (options 66/67)</span></div>
+        <a href="Masterisation_PC_Hopital_Roubaix.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-context"><p>Environnement de production hospitalier. Contrainte : déploiement pendant un week-end pour minimiser l'impact sur les soins. Image maître intégrant les logiciels métiers (dossier patient informatisé, PACS imagerie, gestion pharmacie).</p></div>
+      <div class="project-body">
+        <div class="project-section"><h4>Réalisations</h4><ul><li>Préparation du poste modèle : OS, drivers, logiciels métiers, GPO, Sysprep</li><li>Installation et configuration du serveur FOG sur Debian 11</li><li>Capture de l'image maître (Single Disk Resizable)</li><li>Déploiement multicast sur 80 postes groupés par service</li><li>Plan de validation : boot PXE, DHCP, jonction AD, logiciels, réseau</li></ul></div>
+        <div class="project-section"><h4>Résultats</h4><ul><li>80 postes déployés en ~2 jours (vs ~2 semaines en manuel)</li><li>~15 min par poste contre 2h en installation manuelle</li><li>Parc 100% homogène et prêt à la production</li><li>Images versionnées et reproductibles</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Masterisation et déploiement massif (unicast + multicast)</li><li>Administration serveur FOG / Debian</li><li>Sysprep et préparation d'images Windows</li><li>Gestion de parc en milieu hospitalier critique</li></ul></div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-head">
+        <span class="project-num">PROJET 07</span>
+        <h3>Gestion de Tickets et Support — GLPI (Hôpital de Roubaix)</h3>
+        <p class="desc">Support N1/N2 sur GLPI : prise en charge de ~120 tickets (incidents + demandes) pour un parc de ~800 postes et ~200 imprimantes à la DSI du Centre Hospitalier de Roubaix.</p>
+        <div class="project-tools"><span class="project-tool">GLPI</span><span class="project-tool">Active Directory (ADUC)</span><span class="project-tool">ITIL</span><span class="project-tool">Windows</span><span class="project-tool">Réseau / VLAN</span><span class="project-tool">FOG</span><span class="project-tool">Impression</span></div>
+        <a href="Gestion_Tickets_Support_Hopital_Roubaix.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir le document PDF</a>
+      </div>
+      <div class="project-body">
+        <div class="project-section"><h4>Interventions types</h4><ul><li>Imprimante HS (Cardiologie) : purge spooleur, réinstallation pilote — 25 min</li><li>Accès DPI bloqué (Urgences) : déverrouillage compte AD — 10 min</li><li>BSOD récurrent (RH) : diagnostic SMART, remplacement SSD, redéploiement FOG — 1h30</li><li>Panne réseau (Radiologie) : câble débranché, rebrassage trunk — 15 min</li><li>Création de compte médecin : AD + messagerie + droits DPI — 45 min</li></ul></div>
+        <div class="project-section"><h4>Indicateurs</h4><ul><li>~120 tickets traités sur la durée du stage</li><li>85% résolus en N1 (objectif DSI : &gt;70%)</li><li>Temps moyen de résolution : ~35 min</li><li>Taux de réouverture : ~5% (&lt;10%)</li><li>Matrice de priorisation ITIL (urgence × impact)</li></ul></div>
+        <div class="project-section"><h4>Compétences</h4><ul><li>Support utilisateur N1/N2 en milieu hospitalier</li><li>GLPI : cycle de vie complet des tickets</li><li>Diagnostic réseau, système et matériel</li><li>Priorisation ITIL et gestion des escalades</li><li>Communication adaptée au personnel soignant</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">04 — Grille E5</div><h2 class="section-title">Tableau de synthèse des compétences</h2></div>
+    <p style="color:var(--text2);font-size:.9rem;margin-bottom:1.5rem" class="fade-up">Grille officielle de l'épreuve E5 — BTS SIO option SISR — Session 2025. Chaque réalisation est associée aux compétences du référentiel avec le niveau de mobilisation correspondant.</p>
+    <a href="Fiche_Synthese_E5.pdf" target="_blank" class="pdf-link fade-up" style="margin-bottom:2rem;display:inline-flex"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Télécharger la fiche de synthèse officielle (PDF)</a>
+
+    <div class="fade-up" style="overflow-x:auto;margin-bottom:2rem">
+      <table class="e5-table">
+        <thead>
+          <tr>
+            <th class="col-project">Réalisations professionnelles</th>
+            <th class="col-period">Période</th>
+            <th class="col-comp"><span class="comp-short">C1</span><span class="comp-full">Gérer le patrimoine informatique</span></th>
+            <th class="col-comp"><span class="comp-short">C2</span><span class="comp-full">Répondre aux incidents et demandes</span></th>
+            <th class="col-comp"><span class="comp-short">C3</span><span class="comp-full">Développer la présence en ligne</span></th>
+            <th class="col-comp"><span class="comp-short">C4</span><span class="comp-full">Travailler en mode projet</span></th>
+            <th class="col-comp"><span class="comp-short">C5</span><span class="comp-full">Mettre à disposition un service informatique</span></th>
+            <th class="col-comp"><span class="comp-short">C6</span><span class="comp-full">Organiser son développement professionnel</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="e5-category"><td colspan="8">Réalisations en cours de formation</td></tr>
+          <tr><td>FOG — Déploiement d'images</td><td>09/2024 – 03/2025</td><td><span class="xbadge">×2</span></td><td></td><td></td><td></td><td><span class="xbadge">×2</span></td><td></td></tr>
+          <tr><td>AP4-M5 — SecureVoIP</td><td>09/2024 – 03/2025</td><td></td><td></td><td></td><td><span class="xbadge x4">×4</span></td><td><span class="xbadge">×1</span></td><td></td></tr>
+          <tr><td>PA</td><td>09/2024 – 03/2025</td><td></td><td></td><td></td><td></td><td><span class="xbadge">×2</span></td><td></td></tr>
+          <tr><td>Veille techno — VPN vs ZTNA</td><td>09/2024 – 03/2025</td><td></td><td></td><td></td><td></td><td></td><td><span class="xbadge">×2</span></td></tr>
+          <tr><td>AP4-M4 — Portail Captif</td><td>09/2024 – 03/2025</td><td><span class="xbadge">×2</span></td><td><span class="xbadge">×1</span></td><td></td><td><span class="xbadge">×2</span></td><td><span class="xbadge">×2</span></td><td></td></tr>
+          <tr><td>Projet Asso — Site web</td><td>09/2024 – 03/2025</td><td></td><td></td><td><span class="xbadge">×1</span></td><td><span class="xbadge">×1</span></td><td></td><td></td></tr>
+          <tr><td>AP3-M2 — Sauvegarde</td><td>09/2024 – 03/2025</td><td><span class="xbadge">×2</span></td><td></td><td></td><td></td><td><span class="xbadge">×2</span></td><td></td></tr>
+          <tr><td>AP3-M1 — CreaNet (M2L)</td><td>09/2024 – 03/2025</td><td><span class="xbadge">×2</span></td><td></td><td></td><td><span class="xbadge">×1</span></td><td><span class="xbadge">×2</span></td><td></td></tr>
+          <tr><td>AP3-M3 — Projet ASSISES</td><td>09/2024 – 03/2025</td><td><span class="xbadge">×3</span></td><td></td><td></td><td><span class="xbadge x4">×4</span></td><td><span class="xbadge">×1</span></td><td></td></tr>
+
+          <tr class="e5-category"><td colspan="8">Stage 1ère année — DynamIT</td></tr>
+          <tr><td>Audit de switch</td><td>21/05/24 – 21/06/24</td><td><span class="xbadge">×2</span></td><td></td><td></td><td></td><td><span class="xbadge">×2</span></td><td></td></tr>
+          <tr><td>Configuration de switch</td><td>21/05/24 – 21/06/24</td><td><span class="xbadge">×2</span></td><td></td><td></td><td><span class="xbadge">×1</span></td><td><span class="xbadge">×1</span></td><td></td></tr>
+
+          <tr class="e5-category"><td colspan="8">Stage 2ème année — Hôpital de Roubaix</td></tr>
+          <tr><td>Audit réseau (site distant)</td><td>08/01/2025</td><td><span class="xbadge">×2</span></td><td><span class="xbadge">×2</span></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>Configuration de PC</td><td>30/01/2025</td><td><span class="xbadge">×2</span></td><td></td><td></td><td><span class="xbadge">×1</span></td><td><span class="xbadge">×1</span></td><td></td></tr>
+          <tr><td>Création tutoriel Wireshark</td><td>03/02/2025</td><td></td><td></td><td></td><td></td><td><span class="xbadge">×2</span></td><td><span class="xbadge">×1</span></td></tr>
+          <tr><td>Gestion de tickets / support</td><td>05/01/26 – 20/02/26</td><td></td><td><span class="xbadge">×2</span></td><td></td><td></td><td><span class="xbadge">×1</span></td><td></td></tr>
+          <tr><td>Masterisation de postes</td><td>05/01/26 – 20/02/26</td><td><span class="xbadge">×2</span></td><td></td><td></td><td></td><td><span class="xbadge">×3</span></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="e5-legend fade-up">
+      <div class="legend-item"><span class="comp-short" style="background:var(--accent-glow);border:1px solid rgba(0,212,255,.3);color:var(--accent)">C1</span> Gérer le patrimoine informatique</div>
+      <div class="legend-item"><span class="comp-short" style="background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green)">C2</span> Répondre aux incidents et aux demandes</div>
+      <div class="legend-item"><span class="comp-short" style="background:rgba(170,102,255,.1);border:1px solid rgba(170,102,255,.3);color:var(--purple)">C3</span> Développer la présence en ligne</div>
+      <div class="legend-item"><span class="comp-short" style="background:rgba(255,136,0,.1);border:1px solid rgba(255,136,0,.3);color:var(--orange)">C4</span> Travailler en mode projet</div>
+      <div class="legend-item"><span class="comp-short" style="background:rgba(255,51,102,.1);border:1px solid rgba(255,51,102,.3);color:var(--red)">C5</span> Mettre à disposition un service informatique</div>
+      <div class="legend-item"><span class="comp-short" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:var(--text2)">C6</span> Organiser son développement professionnel</div>
+    </div>
+  </div>
+</section>
+
+<section id="parcours">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">05 — Expériences</div><h2 class="section-title">Parcours professionnel</h2></div>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <h3>Centre Hospitalier de Roubaix</h3>
+        <div class="role">Stage 2ème année — DSI / Support & Déploiement</div>
+        <p>Stage à la Direction des Systèmes d'Information, parc de +2 000 appareils. Intégré à l'équipe support, j'ai assuré le support N1/N2, piloté le projet de masterisation et participé aux daily meetings Agile.</p>
+        <ul><li>Gestion de ~120 tickets (incidents + demandes)</li><li>Support N1/N2 : Active Directory, réseau, impression, logiciels métiers (DPI, PACS)</li><li>Masterisation et déploiement de 80 postes via FOG (multicast)</li><li>Configuration d'imprimantes Lexmark (IP, pilotes, réseau partagé)</li><li>Interventions sur sites distants en autonomie</li><li>Daily meetings et organisation Agile de l'équipe DSI</li></ul>
+        <a href="Rapport_Stage_Hopital_Roubaix.pdf" target="_blank" class="pdf-link" style="margin-top:.75rem"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Rapport de stage complet (PDF)</a>
+        <div class="stat-grid">
+          <div class="stat-box"><span class="num">~120</span><span class="lbl">Tickets traités</span></div>
+          <div class="stat-box"><span class="num">85%</span><span class="lbl">Résolus en N1</span></div>
+          <div class="stat-box"><span class="num">80</span><span class="lbl">Postes déployés</span></div>
+          <div class="stat-box"><span class="num">~35min</span><span class="lbl">Résolution moy.</span></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <h3>EPDSAE — Établissement Public de Soutien à l'Autonomie de l'Enfance</h3>
+        <div class="role">Stage — Infrastructure réseau & audit (06/01/2025 – 14/02/2025)</div>
+        <p>Stage au sein de la DSI de l'EPDSAE à Ronchin, organisme gérant plusieurs établissements dans les Hauts-de-France. Mission principale : audit et amélioration de l'infrastructure réseau reliant les différents sites.</p>
+        <ul><li>Configuration de switchs via Putty (VLAN, ports, trunk)</li><li>Audit réseau des différents établissements</li><li>Analyse de trames avec Wireshark et configuration de ports mirroring</li><li>Analyse des schémas réseau et identification des problèmes de latence</li><li>Mise à jour des documents techniques sur les infrastructures</li></ul>
+        <a href="Rapport_Stage_EPDSAE.pdf" target="_blank" class="pdf-link" style="margin-top:.75rem"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Rapport de stage complet (PDF)</a>
+      </div>
+      <div class="timeline-item">
+        <h3>DynamIT</h3>
+        <div class="role">Stage 1ère année — Infrastructure & systèmes</div>
+        <p>Entreprise spécialisée dans les services informatiques aux entreprises.</p>
+        <ul><li>Configuration et administration d'Active Directory (comptes, droits, GPO)</li><li>Paramétrage de switchs : VLAN, ports, liaisons trunk</li><li>Audit de sécurité sur machine virtuelle (VMware)</li><li>Mise en place du chiffrement PGP</li><li>Gestion d'un serveur de messagerie</li></ul>
+      </div>
+      <div class="timeline-item">
+        <h3>Auchan</h3>
+        <div class="role">Équipier — Compétences transversales</div>
+        <p>Expérience en parallèle de la formation :</p>
+        <ul><li>Rigueur et respect des procédures</li><li>Travail en équipe et communication</li><li>Gestion du stress et adaptabilité</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="veille">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">06 — Veille technologique</div><h2 class="section-title">VPN vs ZTNA — Vers un accès réseau Zero Trust</h2></div>
+    <div class="veille-grid">
+      <div class="veille-card fade-up stagger-1" style="grid-column:1/-1"><h3>&#128203; Contexte de l'étude</h3><p>Veille réalisée dans le contexte de la <strong>Maison des Ligues de Lorraine (M2L)</strong>, un établissement hébergeant 24 ligues sportives sur un réseau unique 172.16.0.0/16 non segmenté. Le constat : un VPN classique donne un accès réseau complet à quiconque s'authentifie, exposant les données de toutes les ligues. La question de la <strong>sécurisation des accès distants</strong> se pose concrètement.</p></div>
+      <div class="veille-card fade-up stagger-2"><h3>&#128274; VPN Traditionnel</h3><p>Tunnel chiffré donnant un accès <strong>réseau complet</strong> (172.16.0.0/16). Problème majeur à la M2L : accès croisé entre les 24 ligues, mouvement latéral facilité, aucune vérification de conformité des postes.</p><div class="veille-tools"><span class="veille-tool">SSL/TLS</span><span class="veille-tool">OpenVPN</span><span class="veille-tool">WireGuard</span><span class="veille-tool">IPsec</span></div></div>
+      <div class="veille-card fade-up stagger-3"><h3>&#128737; ZTNA — Zero Trust</h3><p>Accès <strong>par application</strong> uniquement, après vérification de l'identité (MFA) et de la conformité de l'appareil. Le réseau n'est jamais exposé. Philosophie : <em>"Never Trust, Always Verify"</em> (NIST SP 800-207, 2020).</p><div class="veille-tools"><span class="veille-tool">Cloudflare Access</span><span class="veille-tool">Zscaler ZPA</span><span class="veille-tool">Azure AD / Entra</span><span class="veille-tool">MFA</span></div></div>
+    </div>
+    <div class="veille-card fade-up" style="margin-top:1.5rem">
+      <h3>&#9878; Comparaison VPN vs ZTNA pour la M2L</h3>
+      <table class="compare-table">
+        <thead><tr><th>Critère</th><th>VPN Traditionnel</th><th>ZTNA</th></tr></thead>
+        <tbody>
+          <tr><td>Niveau d'accès</td><td>Réseau entier (172.16.0.0/16)</td><td>Application par application</td></tr>
+          <tr><td>Isolation multi-tenant</td><td>Non — 24 ligues sur le même réseau</td><td>Oui — isolation par identité</td></tr>
+          <tr><td>Authentification</td><td>Login / mot de passe</td><td>MFA obligatoire + contexte</td></tr>
+          <tr><td>Vérification de posture</td><td>Absente</td><td>Native (conformité poste M2L)</td></tr>
+          <tr><td>Visibilité / Traçabilité</td><td>Limitée</td><td>Logs complets par ligue et par user</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="veille-card fade-up" style="margin-top:1.5rem">
+      <h3>&#9989; Conclusion et recommandation</h3>
+      <p>Le ZTNA répond précisément aux besoins de la M2L : contrôle des accès, cloisonnement des structures, surveillance du parc. <strong>Solution recommandée : Cloudflare Access</strong> (gratuit jusqu'à 50 utilisateurs, sans agent, simple à administrer). Le VPN IPsec reste pertinent uniquement pour les liens filaires inter-bâtiments (A, B, C, D).</p>
+      <a href="Veille_VPN_ZTNA_Contexte_M2L_docx.pdf" target="_blank" class="pdf-link"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg> Voir la veille complète (PDF)</a>
+      <div class="veille-tools" style="margin-top:.75rem"><span class="veille-tool">NIST SP 800-207</span><span class="veille-tool">ANSSI</span><span class="veille-tool">Directive NIS2</span><span class="veille-tool">CERT-FR</span><span class="veille-tool">Reddit r/netsec</span><span class="veille-tool">The Hacker News</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">07 — Conclusion</div><h2 class="section-title">Bilan et perspectives</h2></div>
+    <div class="conclusion-box fade-up">
+      <h3>Un parcours orienté vers l'action</h3>
+      <div class="conclusion-text">
+        <p>Ma formation en BTS SIO option SISR m'a permis de développer des compétences solides en administration système, gestion de réseaux et cybersécurité. De l'infrastructure M2L à la masterisation de 80 postes à l'Hôpital de Roubaix, en passant par la gestion de 120 tickets sur GLPI, chaque projet a renforcé ma capacité à travailler en conditions réelles.</p>
+        <p>Mon stage en milieu hospitalier m'a confronté aux exigences d'un environnement de production critique, où la disponibilité des systèmes est directement liée à la qualité des soins. Ma veille sur le Zero Trust a élargi ma compréhension des enjeux de sécurité modernes.</p>
+      </div>
+      <div class="conclusion-goals">
+        <div class="goal"><div class="label">Court terme</div><div class="value">Administrateur<br>systèmes et réseaux</div></div>
+        <div class="goal"><div class="label">Moyen terme</div><div class="value">Spécialisation<br>cybersécurité</div></div>
+        <div class="goal"><div class="label">Formation</div><div class="value">Licence pro /<br>école spécialisée</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-header fade-up"><div class="section-label">08 — Contact</div><h2 class="section-title">Me contacter</h2></div>
+    <p style="color:var(--text2);font-size:.95rem;margin-bottom:2.5rem;max-width:600px" class="fade-up">Un projet, une opportunité ou une question ? N'hésitez pas à me contacter via l'un de ces canaux.</p>
+    <div class="contact-grid">
+      <a href="https://www.linkedin.com/in/yacine-arbaoui-868356296/" target="_blank" class="contact-card fade-up stagger-1">
+        <div class="contact-icon" style="background:rgba(10,102,194,.12);border-color:rgba(10,102,194,.25)">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">Yacine Arbaoui</span>
+        </div>
+        <span class="contact-arrow">&#8599;</span>
+      </a>
+      <a href="mailto:arbaouiyacine17@gmail.com" class="contact-card fade-up stagger-2">
+        <div class="contact-icon" style="background:rgba(234,67,53,.12);border-color:rgba(234,67,53,.25)">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="#ea4335"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">arbaouiyacine17@gmail.com</span>
+        </div>
+        <span class="contact-arrow">&#8599;</span>
+      </a>
+      <a href="https://github.com/yac-off" target="_blank" class="contact-card fade-up stagger-3">
+        <div class="contact-icon" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15)">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="#e4eaf0"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">yac-off</span>
+        </div>
+        <span class="contact-arrow">&#8599;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer><p>ARBAOUI Yacine — Portfolio E5 — BTS SIO SISR — Session 2026</p></footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)});
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+document.querySelectorAll('.nav-links a').forEach(a=>{a.addEventListener('click',()=>{document.getElementById('navLinks').classList.remove('open');document.getElementById('hamburger').classList.remove('open')})});
+const observer=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-200)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})});
+</script>
+</body>
+</html>
